@@ -1,0 +1,24 @@
+This is GPL software. Do with it as you want, but feed us back any improvements.
+
+This is a simple commmand line utility to control a PELCO PTZ camera via RS422/485
+'P' protocol. It supports all of the commands including UP, DOWN, IN, OUT, LEFT,
+RIGHT, NEAR, FAR, as well as the memory JUMP commands. 
+
+To use this, you need to put a RS232->RS422 adapter on the output
+of your desired serial port.  I use a B&B Electronics model 422LP9R (www.blackbox.com).
+
+The Pelco doesn't return ANY usefull info back, so you only really need 2-wire support 
+(one way) communications out.  However, the software needs to know when the last bit has left 
+the shift register, and so you have to loop the output back around to the input.  This
+way, when you have read what you have written, you know that your timing will be right.
+
+
+Have fun.
+
+
+Joe Briggs
+Briggs Media Systems
+Manchester NH USA
+TEL/FAX 603.232.3115
+www.briggsmedia.com
+jbriggs@briggsmedia.com
