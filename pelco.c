@@ -421,7 +421,7 @@ int pelcoClear(unsigned location)
 
 char *use[]=
 {
-	"pelco -p[port] -b[baud] -a[addr] -L[loops] command -f[force] -t[pulse-time]",
+	"pelco -p[port] -b[baud] -a[addr] command -f[force] -t[pulse-time]",
 	"commmands: right, left, up, down, in, out, set, go, clear",
 	"f - force level, 0 - 63",
 	"t - time to assert in seconds",
@@ -441,7 +441,6 @@ int main(int argc,char *argv[])
 	char *s;
 	int port = 0;
 	int baud = 2400;
-	int loops = 5;
 	char *cmd = (char *)0;
 	unsigned char force = 0x40/2;
 	int pulse = 1;
@@ -453,7 +452,6 @@ int main(int argc,char *argv[])
 			case 'b': baud = atoi(++s); break;
 			case 'p': port = atoi(++s); break;
 			case 'a': addr = atoi(++s); break;
-			case 'L': loops = atoi(++s); break;
 			case 'f': force = atoi(++s); break;
 			case 't': pulse = atoi(++s); break;
 			case '?':
