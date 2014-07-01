@@ -72,7 +72,7 @@ error_code pelcoInit( u_int32 comport, u_int32 baud_rate, int *fd )
 	mlog("%s: port %u dev %s baud %u fd[%u]\n",f,comport,buf,baud_rate,*fd);
 	tcgetattr(*fd,&oldtio);
 	bzero(&newtio,sizeof(newtio));
-	newtio.c_cflag = baud_rate | CS8 | CLOCAL | CREAD;	
+	newtio.c_cflag = baud_rate | CS8 | CLOCAL | CREAD;
 	newtio.c_iflag = IGNPAR;
 	newtio.c_oflag = 0;
 	newtio.c_lflag = 0;
@@ -307,7 +307,7 @@ int pelcoIn(unsigned char force)
 	pelco[p_addr] = addr;
 	pelco[p_cmd1] = 0x00;
 	pelco[p_cmd2] = 0x20;
-	pelco[p_data1] = 0; 
+	pelco[p_data1] = 0;
 	pelco[p_data2] = 0;
 	pelcoChecksum();
 	pelcoWrite(pelco,sizeof(pelco));
@@ -322,7 +322,7 @@ int pelcoOut(unsigned char force)
 	pelco[p_addr] = addr;
 	pelco[p_cmd1] = 0x00;
 	pelco[p_cmd2] = 0x40;
-	pelco[p_data1] = 0; 
+	pelco[p_data1] = 0;
 	pelco[p_data2] = 0;
 	pelcoChecksum();
 	pelcoWrite(pelco,sizeof(pelco));
@@ -337,7 +337,7 @@ int pelcoNear(unsigned char force)
 	pelco[p_addr] = addr;
 	pelco[p_cmd1] = 0x01;
 	pelco[p_cmd2] = 0x00;
-	pelco[p_data1] = 0; 
+	pelco[p_data1] = 0;
 	pelco[p_data2] = 0;
 	pelcoChecksum();
 	pelcoWrite(pelco,sizeof(pelco));
@@ -352,7 +352,7 @@ int pelcoFar(unsigned char force)
 	pelco[p_addr] = addr;
 	pelco[p_cmd1] = 0x00;
 	pelco[p_cmd2] = 0x80;
-	pelco[p_data1] = 0; 
+	pelco[p_data1] = 0;
 	pelco[p_data2] = 0;
 	pelcoChecksum();
 	pelcoWrite(pelco,sizeof(pelco));
@@ -418,11 +418,10 @@ int pelcoClear(unsigned location)
 	pelcoWrite(pelco,sizeof(pelco));
 	return 0;
 }
-	
+
 char *use[]=
 {
-	"pelco -p[port] -b[baud] -a[addr] -L[loops] -l command -f[force] -t[pulse-time]",
-	"l - listen",
+	"pelco -p[port] -b[baud] -a[addr] command -f[force] -t[pulse-time]",
 	"commmands: right, left, up, down, in, out, set, go, clear",
 	"f - force level, 0 - 63",
 	"t - time to assert in seconds",
@@ -442,8 +441,6 @@ int main(int argc,char *argv[])
 	char *s;
 	int port = 0;
 	int baud = 2400;
-	int loops = 5;
-	int listen = 0;
 	char *cmd = (char *)0;
 	unsigned char force = 0x40/2;
 	int pulse = 1;
@@ -455,11 +452,9 @@ int main(int argc,char *argv[])
 			case 'b': baud = atoi(++s); break;
 			case 'p': port = atoi(++s); break;
 			case 'a': addr = atoi(++s); break;
-			case 'L': loops = atoi(++s); break;
-			case 'l': listen = 1; break;
 			case 'f': force = atoi(++s); break;
 			case 't': pulse = atoi(++s); break;
-			case '?': 
+			case '?':
 			default: usage();
 		}else cmd = s;
 	}
